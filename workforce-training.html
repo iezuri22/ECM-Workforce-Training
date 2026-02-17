@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Workforce – ECM Training Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ── TOKENS ─────────────────────────────── */
+    :root {
+      --navy:   #2D3580;
+      --navy-d: #1e2460;
+      --navy-l: #3d47a8;
+      --red:    #E63329;
+      --red-d:  #c4251c;
+      --white:  #ffffff;
+      --off:    #f4f5fb;
+      --muted:  #7a7fa8;
+      --border: #dde0f0;
+      --text:   #1a1d3a;
+      --card-shadow: 0 2px 16px rgba(45,53,128,.10);
+    }
+
+    /* ── RESET ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--off);
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; }
+
+    /* ── TOPBAR ─────────────────────────────── */
+    .topbar {
+      background: var(--navy-d);
+      color: rgba(255,255,255,.7);
+      font-size: .78rem;
+      letter-spacing: .04em;
+      text-align: center;
+      padding: .45rem 1rem;
+    }
+
+    /* ── HEADER ─────────────────────────────── */
+    header {
+      background: var(--white);
+      border-bottom: 3px solid var(--red);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 2px 20px rgba(45,53,128,.12);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: .9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .logos {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+    }
+    .logos img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+    .logo-divider {
+      width: 1px;
+      height: 32px;
+      background: var(--border);
+    }
+    .dept-badge {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .35rem .9rem;
+      border-radius: 4px;
+    }
+    nav {
+      display: flex;
+      gap: .25rem;
+      align-items: center;
+    }
+    nav a {
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--navy);
+      padding: .5rem .9rem;
+      border-radius: 6px;
+      transition: background .2s, color .2s;
+    }
+    nav a:hover { background: var(--off); color: var(--red); }
+    nav a.active { background: var(--navy); color: var(--white); }
+
+    /* ── HERO ───────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy-d) 0%, var(--navy) 55%, var(--navy-l) 100%);
+      color: var(--white);
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      border: 60px solid rgba(230,51,41,.12);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: 80px;
+      bottom: -120px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 40px solid rgba(255,255,255,.06);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(230,51,41,.25);
+      border: 1px solid rgba(230,51,41,.5);
+      color: #ffb3af;
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: .35rem .85rem;
+      border-radius: 30px;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: .75rem;
+    }
+    .hero h1 span { color: var(--red); }
+    .hero p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.78);
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .hero-stat strong {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--white);
+      display: block;
+    }
+    .hero-stat span {
+      font-size: .8rem;
+      color: rgba(255,255,255,.6);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION WRAPPERS ───────────────────── */
+    section { padding: 4rem 2rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .section-heading h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .section-heading .rule {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      margin-bottom: 5px;
+    }
+    .section-heading .count {
+      font-size: .82rem;
+      color: var(--muted);
+      white-space: nowrap;
+      margin-bottom: 4px;
+    }
+
+    /* ── RESOURCE LIBRARY ───────────────────── */
+    #resources { background: var(--white); }
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.25rem;
+    }
+    .resource-card {
+      background: var(--off);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.1rem;
+      transition: box-shadow .25s, border-color .25s, transform .2s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .resource-card:hover {
+      border-color: var(--navy);
+      box-shadow: var(--card-shadow);
+      transform: translateY(-2px);
+    }
+    .resource-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .icon-pdf  { background: #fff0ef; color: var(--red); }
+    .icon-pptx { background: #fff4e8; color: #d4560a; }
+    .icon-doc  { background: #eef1ff; color: var(--navy); }
+    .icon-vid  { background: #f0fff4; color: #1a7a40; }
+    .icon-link { background: #f4eeff; color: #6b3fa8; }
+    .resource-meta { flex: 1; min-width: 0; }
+    .resource-meta h3 {
+      font-size: .97rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .3rem;
+      line-height: 1.3;
+    }
+    .resource-meta p {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .resource-tag {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .2rem .6rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: .5rem;
+    }
+    .tag-pdf  { background: #fff0ef; color: var(--red); }
+    .tag-pptx { background: #fff4e8; color: #d4560a; }
+    .tag-doc  { background: #eef1ff; color: var(--navy); }
+    .tag-vid  { background: #f0fff4; color: #1a7a40; }
+    .tag-link { background: #f4eeff; color: #6b3fa8; }
+
+    /* ── TRAINING BOOKLET ───────────────────── */
+    #booklet { background: var(--off); }
+    .booklet-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* TOC Sidebar */
+    .toc {
+      position: sticky;
+      top: 82px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+    .toc-header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 1rem 1.25rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .toc-list { list-style: none; padding: .5rem 0; }
+    .toc-list li a {
+      display: block;
+      padding: .6rem 1.25rem;
+      font-size: .875rem;
+      color: var(--text);
+      border-left: 3px solid transparent;
+      transition: background .2s, border-color .2s, color .2s;
+      line-height: 1.4;
+    }
+    .toc-list li a:hover {
+      background: var(--off);
+      border-left-color: var(--navy);
+      color: var(--navy);
+    }
+    .toc-list li a.toc-active {
+      background: #eef0ff;
+      border-left-color: var(--red);
+      color: var(--navy);
+      font-weight: 600;
+    }
+    .toc-list li.toc-section > a {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      padding-top: 1rem;
+      pointer-events: none;
+      cursor: default;
+    }
+    .toc-list li.toc-section > a:hover { background: none; border-left-color: transparent; }
+    .toc-list li.toc-sub > a { padding-left: 2rem; font-size: .84rem; }
+    .toc-progress {
+      padding: .75rem 1.25rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 5px;
+      background: var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--navy), var(--red));
+      border-radius: 10px;
+      transition: width .4s ease;
+    }
+    .progress-label { font-size: .75rem; color: var(--muted); white-space: nowrap; }
+
+    /* Booklet Content */
+    .booklet-content { min-width: 0; }
+    .booklet-section {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      scroll-margin-top: 100px;
+    }
+    .bs-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .bs-header:hover .bs-toggle { color: var(--red); }
+    .bs-num {
+      width: 36px;
+      height: 36px;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: .95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .bs-title {
+      flex: 1;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--navy);
+    }
+    .bs-toggle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      transition: transform .3s, color .2s;
+    }
+    .bs-toggle.open { transform: rotate(180deg); color: var(--red); }
+    .bs-body {
+      padding: 2rem;
+      display: none;
+    }
+    .bs-body.open { display: block; }
+    .bs-body p {
+      font-size: .96rem;
+      line-height: 1.75;
+      color: #3a3d5a;
+      margin-bottom: 1rem;
+    }
+    .bs-body p:last-child { margin-bottom: 0; }
+    .bs-body h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--navy);
+      margin: 1.5rem 0 .6rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .bs-body h4::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: var(--red);
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .bs-body ul {
+      list-style: none;
+      margin: .75rem 0 1.25rem;
+    }
+    .bs-body ul li {
+      font-size: .94rem;
+      color: #3a3d5a;
+      padding: .4rem 0 .4rem 1.4rem;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .bs-body ul li:last-child { border-bottom: none; }
+    .bs-body ul li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    /* Callout boxes */
+    .callout {
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      font-size: .92rem;
+      line-height: 1.6;
+      display: flex;
+      gap: .85rem;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+    .callout.info { background: #eef0ff; border-left: 4px solid var(--navy); color: var(--navy-d); }
+    .callout.tip  { background: #f0fff4; border-left: 4px solid #1a7a40; color: #155a30; }
+    .callout.warn { background: #fff8ed; border-left: 4px solid #e68a00; color: #7a4800; }
+
+    /* Video embed */
+    .video-block {
+      margin: 1.5rem 0;
+    }
+    .video-label {
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      margin-bottom: .6rem;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .video-label::before {
+      content: '▶';
+      color: var(--red);
+      font-size: .75rem;
+    }
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+      background: #0a0a0a;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f1229, #1e2460);
+      color: rgba(255,255,255,.7);
+      gap: .75rem;
+    }
+    .video-placeholder .play-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(230,51,41,.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+    .video-placeholder p { font-size: .9rem; opacity: .7; }
+    .video-placeholder small { font-size: .75rem; opacity: .5; }
+
+    /* Step indicator */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 1.25rem 0;
+    }
+    .step {
+      display: flex;
+      gap: 1rem;
+      position: relative;
+    }
+    .step-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .step-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: .75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .step:not(:last-child) .step-line {
+      width: 2px;
+      flex: 1;
+      min-height: 20px;
+      background: var(--border);
+      margin: 4px 0;
+    }
+    .step-content {
+      padding-bottom: 1.25rem;
+      flex: 1;
+    }
+    .step-content h5 {
+      font-weight: 600;
+      font-size: .94rem;
+      color: var(--navy);
+      margin-bottom: .35rem;
+    }
+    .step-content p {
+      font-size: .88rem !important;
+      margin-bottom: 0 !important;
+      color: var(--muted) !important;
+    }
+
+    /* ── FOOTER ─────────────────────────────── */
+    footer {
+      background: var(--navy-d);
+      color: rgba(255,255,255,.6);
+      padding: 2rem;
+      text-align: center;
+      font-size: .82rem;
+    }
+    footer strong { color: rgba(255,255,255,.9); }
+
+    /* ── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 860px) {
+      .booklet-layout { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .header-inner { flex-wrap: wrap; gap: .75rem; }
+    }
+    @media (max-width: 540px) {
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      section { padding: 2.5rem 1.25rem; }
+      .logos img { height: 30px; }
+    }
+
+    /* ── ANIMATIONS ─────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-inner > * {
+      animation: fadeUp .55s ease both;
+    }
+    .hero-inner > *:nth-child(1) { animation-delay: .05s; }
+    .hero-inner > *:nth-child(2) { animation-delay: .15s; }
+    .hero-inner > *:nth-child(3) { animation-delay: .25s; }
+    .hero-inner > *:nth-child(4) { animation-delay: .35s; }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">City of Chicago · Enterprise Content Management (ECM) · Training Portal</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logos">
+      <!-- Replace src paths with actual hosted logo URLs on GitHub Pages -->
+      <img src="william_everett_logo.png" alt="William Everett" />
+      <div class="logo-divider"></div>
+      <img src="Adsystechlogo_vertical.png" alt="Adsystech" style="filter:brightness(0) saturate(100%) invert(18%) sepia(80%) saturate(700%) hue-rotate(200deg);" />
+    </div>
+    <div class="dept-badge">Workforce Division</div>
+    <nav>
+      <a href="#resources" class="active">Resources</a>
+      <a href="#booklet">Training Guide</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">ECM Training Portal</div>
+    <h1>Workforce Division<br><span>Training Hub</span></h1>
+    <p>Your central resource for ECM system training. Access guides, materials, and step-by-step walkthroughs specific to Workforce Division processes.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <strong id="resource-count">0</strong>
+        <span>Training Resources</span>
+      </div>
+      <div class="hero-stat">
+        <strong>5</strong>
+        <span>Guide Sections</span>
+      </div>
+      <div class="hero-stat">
+        <strong>WFD</strong>
+        <span>Department Code</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── RESOURCE LIBRARY ───────────────────────── -->
+<section id="resources">
+  <div class="section-inner">
+    <div class="section-heading">
+      <h2>📂 Resource Library</h2>
+      <div class="rule"></div>
+      <span class="count" id="res-count-label">Loading…</span>
+    </div>
+
+    <div class="resource-grid" id="resource-grid">
+      <!-- RESOURCE CARDS – replace href="#" with actual file URLs -->
+
+      <a class="resource-card" href="#" target="_blank">
+        <div class="resource-icon icon-pdf">📄</div>
+        <div class="resource-meta">
+          <h3>Workforce ECM Quick Reference Guide</h3>
+          <p>One-page summary of key ECM fields and workflows for Workforce staff.</p>
+          <span class="resource-tag tag-pdf">PDF</span>
+        </div>
+      </a>
+
+      <a class="resource-card" href="#" target="_blank">
+        <div class="resource-icon icon-pptx">📊</div>
+        <div class="resource-meta">
+          <h3>ECM Onboarding Presentation</h3>
+          <p>Slide deck used during initial Workforce ECM onboarding sessions.</p>
+          <span class="resource-tag tag-pptx">PowerPoint</span>
+        </div>
+      </a>
+
+      <a class="resource-card" href="#" target="_blank">
+        <div class="resource-icon icon-doc">📝</div>
+        <div class="resource-meta">
+          <h3>Client Intake SOP</h3>
+          <p>Step-by-step standard operating procedure for entering new client intakes.</p>
+          <span class="resource-tag tag-doc">Word Doc</span>
+        </div>
+      </a>
+
+      <a class="resource-card" href="#" target="_blank">
+        <div class="resource-icon icon-pdf">📄</div>
+        <div class="resource-meta">
+          <h3>Application Status Codes Reference</h3>
+          <p>Definitions and guidance for all application status codes used in ECM.</p>
+          <span class="resource-tag tag-pdf">PDF</span>
+        </div>
+      </a>
+
+      <a class="resource-card" href="#" target="_blank">
+        <div class="resource-icon icon-pptx">📊</div>
+        <div class="resource-meta">
+          <h3>Deduplication & Client Search Training</h3>
+          <p>How to search for existing clients and avoid duplicate records in ECM.</p>
+          <span class="resource-tag tag-pptx">PowerPoint</span>
+        </div>
+      </a>
+
+      <a class="resource-card" href="#" target="_blank">
+        <div class="resource-icon icon-doc">📝</div>
+        <div class="resource-meta">
+          <h3>Encounter Documentation Guide</h3>
+          <p>Instructions for logging service encounters and tracking client progress.</p>
+          <span class="resource-tag tag-doc">Word Doc</span>
+        </div>
+      </a>
+
+    </div><!-- /resource-grid -->
+  </div>
+</section>
+
+<!-- ── TRAINING BOOKLET ───────────────────────── -->
+<section id="booklet">
+  <div class="section-inner">
+    <div class="section-heading">
+      <h2>📖 Interactive Training Guide</h2>
+      <div class="rule"></div>
+      <span class="count">Workforce Division · All Sections</span>
+    </div>
+
+    <div class="booklet-layout">
+
+      <!-- TABLE OF CONTENTS -->
+      <aside>
+        <div class="toc">
+          <div class="toc-header">📋 Table of Contents</div>
+          <ul class="toc-list" id="toc-list">
+            <li class="toc-section"><a href="#">Getting Started</a></li>
+            <li class="toc-sub"><a href="#s1" class="toc-link">1. System Overview</a></li>
+            <li class="toc-sub"><a href="#s2" class="toc-link">2. Logging In & Navigation</a></li>
+            <li class="toc-section"><a href="#">Client Management</a></li>
+            <li class="toc-sub"><a href="#s3" class="toc-link">3. Searching & Deduplication</a></li>
+            <li class="toc-sub"><a href="#s4" class="toc-link">4. Creating a New Application</a></li>
+            <li class="toc-section"><a href="#">Service Delivery</a></li>
+            <li class="toc-sub"><a href="#s5" class="toc-link">5. Recording Encounters</a></li>
+          </ul>
+          <div class="toc-progress">
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+            <span class="progress-label" id="progress-label">0 / 5</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- BOOKLET SECTIONS -->
+      <div class="booklet-content">
+
+        <!-- SECTION 1 -->
+        <div class="booklet-section" id="s1">
+          <div class="bs-header" onclick="toggleSection(this)">
+            <div class="bs-num">1</div>
+            <div class="bs-title">System Overview</div>
+            <div class="bs-toggle">▾</div>
+          </div>
+          <div class="bs-body open">
+            <p>The Enterprise Content Management (ECM) system is the City of Chicago's centralized platform for tracking client services across multiple departments. For the Workforce Division, ECM serves as the primary tool for managing workforce development program participants from intake through case closure.</p>
+
+            <div class="callout info">
+              <span class="callout-icon">ℹ️</span>
+              <div>ECM is accessed through a web browser — no software installation required. Always use your assigned City of Chicago credentials to log in. Do not share login credentials.</div>
+            </div>
+
+            <h4>What ECM Manages for Workforce</h4>
+            <ul>
+              <li>Client intake applications and eligibility determinations</li>
+              <li>Program enrollment and participation tracking</li>
+              <li>Service encounter documentation</li>
+              <li>Outcome and placement recording</li>
+              <li>Reporting for federal and city compliance requirements</li>
+            </ul>
+
+            <div class="video-block">
+              <div class="video-label">Video Walkthrough — System Overview</div>
+              <div class="video-wrapper">
+                <!-- Replace VIDEO_ID with your YouTube video ID -->
+                <!-- Example: src="https://www.youtube.com/embed/dQw4w9WgXcQ" -->
+                <div class="video-placeholder">
+                  <div class="play-icon">▶</div>
+                  <p>System Overview Video</p>
+                  <small>Replace VIDEO_ID in the source code with your YouTube video ID</small>
+                </div>
+                <!-- UNCOMMENT & REPLACE VIDEO_ID when ready:
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+                -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="booklet-section" id="s2">
+          <div class="bs-header" onclick="toggleSection(this)">
+            <div class="bs-num">2</div>
+            <div class="bs-title">Logging In & Navigation</div>
+            <div class="bs-toggle">▾</div>
+          </div>
+          <div class="bs-body open">
+            <p>Before you can begin working in ECM, you must have an active account provisioned by your ECM Administrator. If you do not have credentials, contact your supervisor or the ECM support team.</p>
+
+            <h4>Login Steps</h4>
+            <div class="steps">
+              <div class="step">
+                <div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div>
+                <div class="step-content"><h5>Open your browser</h5><p>Use Google Chrome or Microsoft Edge for the best experience.</p></div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div>
+                <div class="step-content"><h5>Navigate to the ECM URL</h5><p>Enter the ECM portal address provided by your administrator.</p></div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div>
+                <div class="step-content"><h5>Enter your credentials</h5><p>Use your assigned username and password. These are separate from your City email credentials.</p></div>
+              </div>
+              <div class="step">
+                <div class="step-left"><div class="step-dot">4</div><div class="step-line"></div></div>
+                <div class="step-content"><h5>Select the Workforce program</h5><p>From the program selector, choose your assigned Workforce program to load the correct view.</p></div>
+              </div>
+            </div>
+
+            <div class="callout warn">
+              <span class="callout-icon">⚠️</span>
+              <div>Always log out when you leave your workstation. Use the Logout button in the top-right corner — do not simply close the browser tab.</div>
+            </div>
+
+            <div class="video-block">
+              <div class="video-label">Video Walkthrough — Login & Navigation</div>
+              <div class="video-wrapper">
+                <div class="video-placeholder">
+                  <div class="play-icon">▶</div>
+                  <p>Login & Navigation Video</p>
+                  <small>Replace VIDEO_ID in the source code with your YouTube video ID</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="booklet-section" id="s3">
+          <div class="bs-header" onclick="toggleSection(this)">
+            <div class="bs-num">3</div>
+            <div class="bs-title">Searching & Deduplication</div>
+            <div class="bs-toggle">▾</div>
+          </div>
+          <div class="bs-body open">
+            <p>Before creating any new client record, you <strong>must</strong> always search for an existing client first. Duplicate records create reporting errors and can negatively impact a client's service history. The deduplication process is one of the most critical steps in ECM data quality.</p>
+
+            <div class="callout tip">
+              <span class="callout-icon">✅</span>
+              <div><strong>Best Practice:</strong> Search by at least two identifiers (e.g., last name + date of birth) to reduce false negatives. A client may be in the system under a slightly different spelling.</div>
+            </div>
+
+            <h4>How to Search for a Client</h4>
+            <ul>
+              <li>Navigate to the Client Search panel from the main menu</li>
+              <li>Enter the client's last name and date of birth at minimum</li>
+              <li>Review all results carefully before concluding no match exists</li>
+              <li>If a match is found, open that record — do not create a new one</li>
+              <li>If no match is found after thorough searching, proceed to create a new record</li>
+            </ul>
+
+            <div class="video-block">
+              <div class="video-label">Video Walkthrough — Client Search & Deduplication</div>
+              <div class="video-wrapper">
+                <div class="video-placeholder">
+                  <div class="play-icon">▶</div>
+                  <p>Client Search Video</p>
+                  <small>Replace VIDEO_ID in the source code with your YouTube video ID</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="booklet-section" id="s4">
+          <div class="bs-header" onclick="toggleSection(this)">
+            <div class="bs-num">4</div>
+            <div class="bs-title">Creating a New Application</div>
+            <div class="bs-toggle">▾</div>
+          </div>
+          <div class="bs-body">
+            <p>Once you have confirmed the client does not already exist in ECM, you can create a new application. This establishes their official program record within the Workforce Division.</p>
+
+            <h4>Required Fields</h4>
+            <ul>
+              <li>Legal first and last name</li>
+              <li>Date of birth</li>
+              <li>Social Security Number (last 4 digits minimum)</li>
+              <li>Address and contact information</li>
+              <li>Program type and funding source</li>
+              <li>Referral source</li>
+            </ul>
+
+            <div class="callout info">
+              <span class="callout-icon">ℹ️</span>
+              <div>Fields marked with a red asterisk (*) are required and must be completed before saving. Saving an incomplete record may result in the application being flagged during QA review.</div>
+            </div>
+
+            <div class="video-block">
+              <div class="video-label">Video Walkthrough — Creating a New Application</div>
+              <div class="video-wrapper">
+                <div class="video-placeholder">
+                  <div class="play-icon">▶</div>
+                  <p>New Application Video</p>
+                  <small>Replace VIDEO_ID in the source code with your YouTube video ID</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div class="booklet-section" id="s5">
+          <div class="bs-header" onclick="toggleSection(this)">
+            <div class="bs-num">5</div>
+            <div class="bs-title">Recording Encounters</div>
+            <div class="bs-toggle">▾</div>
+          </div>
+          <div class="bs-body">
+            <p>Every meaningful interaction with a client should be documented as an encounter in ECM. Encounters are the primary way the Workforce Division tracks service delivery and demonstrates program activity for reporting and compliance.</p>
+
+            <h4>Types of Encounters</h4>
+            <ul>
+              <li><strong>In-person meeting</strong> — face-to-face sessions with the client</li>
+              <li><strong>Phone contact</strong> — outreach or follow-up calls</li>
+              <li><strong>Workshop / group session</strong> — attendance at a program-run event</li>
+              <li><strong>Job placement</strong> — recording a successful placement outcome</li>
+              <li><strong>Follow-up</strong> — post-placement check-ins within required timeframes</li>
+            </ul>
+
+            <div class="callout tip">
+              <span class="callout-icon">✅</span>
+              <div>Encounters should be entered the same day they occur whenever possible. Backdating should be avoided unless you have supervisor approval and a documented reason.</div>
+            </div>
+
+            <div class="video-block">
+              <div class="video-label">Video Walkthrough — Recording Encounters</div>
+              <div class="video-wrapper">
+                <div class="video-placeholder">
+                  <div class="play-icon">▶</div>
+                  <p>Encounter Recording Video</p>
+                  <small>Replace VIDEO_ID in the source code with your YouTube video ID</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /booklet-content -->
+    </div><!-- /booklet-layout -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>City of Chicago · Workforce Division · ECM Training Portal</strong></p>
+  <p style="margin-top:.4rem;">Supported by William Everett & Adsystech · For technical support contact your ECM Administrator</p>
+</footer>
+
+<!-- ── JAVASCRIPT ─────────────────────────────── -->
+<script>
+  // ── Count resources ──────────────────────────
+  const cards = document.querySelectorAll('.resource-card');
+  document.getElementById('resource-count').textContent = cards.length;
+  document.getElementById('res-count-label').textContent = cards.length + ' items';
+
+  // ── Accordion toggle ─────────────────────────
+  function toggleSection(header) {
+    const body   = header.nextElementSibling;
+    const toggle = header.querySelector('.bs-toggle');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    toggle.classList.toggle('open', !isOpen);
+    updateProgress();
+  }
+
+  // ── Progress tracking ────────────────────────
+  const totalSections = 5;
+  function updateProgress() {
+    const openCount = document.querySelectorAll('.bs-body.open').length;
+    const pct = Math.round((openCount / totalSections) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = openCount + ' / ' + totalSections + ' open';
+  }
+  updateProgress();
+
+  // ── Active TOC link on scroll ────────────────
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const sectionEls = ['s1','s2','s3','s4','s5'].map(id => document.getElementById(id));
+
+  function onScroll() {
+    let current = null;
+    sectionEls.forEach(el => {
+      if (el && window.scrollY >= el.offsetTop - 120) current = el.id;
+    });
+    tocLinks.forEach(link => {
+      const href = link.getAttribute('href').replace('#','');
+      link.classList.toggle('toc-active', href === current);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>
