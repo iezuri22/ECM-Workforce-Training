@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Workforce – ECM Training Portal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
-
   <style>
-    /* ── TOKENS ─────────────────────────────── */
     :root {
       --navy:   #2D3580;
       --navy-d: #1e2460;
@@ -21,616 +19,227 @@
       --muted:  #7a7fa8;
       --border: #dde0f0;
       --text:   #1a1d3a;
+      --green:  #1a7a40;
+      --amber:  #e68a00;
       --card-shadow: 0 2px 16px rgba(45,53,128,.10);
     }
-
-    /* ── RESET ──────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
-    body {
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      background: var(--off);
-      min-height: 100vh;
-    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--off); min-height: 100vh; }
     a { color: inherit; text-decoration: none; }
     img { display: block; }
 
-    /* ── TOPBAR ─────────────────────────────── */
-    .topbar {
-      background: var(--navy-d);
-      color: rgba(255,255,255,.7);
-      font-size: .78rem;
-      letter-spacing: .04em;
+    .perf-banner {
+      background: linear-gradient(90deg, #7a1010, var(--red), #c4251c);
+      color: #fff;
       text-align: center;
-      padding: .45rem 1rem;
+      padding: .65rem 2rem;
+      font-size: .88rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      flex-wrap: wrap;
     }
+    .perf-banner .perf-icon { font-size: 1.1rem; }
+    .perf-banner strong { font-weight: 800; }
+    .perf-banner span { opacity: .9; font-weight: 400; }
 
-    /* ── HEADER ─────────────────────────────── */
-    header {
-      background: var(--white);
-      border-bottom: 3px solid var(--red);
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      box-shadow: 0 2px 20px rgba(45,53,128,.12);
-    }
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: .9rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-    }
-    .logos {
-      display: flex;
-      align-items: center;
-      gap: 1.4rem;
-    }
-    .logos img {
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-    }
-    .logo-divider {
-      width: 1px;
-      height: 32px;
-      background: var(--border);
-    }
-    .dept-badge {
-      background: var(--navy);
-      color: var(--white);
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: .72rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      padding: .35rem .9rem;
-      border-radius: 4px;
-    }
-    nav {
-      display: flex;
-      gap: .25rem;
-      align-items: center;
-    }
-    nav a {
-      font-size: .9rem;
-      font-weight: 500;
-      color: var(--navy);
-      padding: .5rem .9rem;
-      border-radius: 6px;
-      transition: background .2s, color .2s;
-    }
+    .topbar { background: var(--navy-d); color: rgba(255,255,255,.7); font-size: .78rem; letter-spacing: .04em; text-align: center; padding: .45rem 1rem; }
+
+    header { background: var(--white); border-bottom: 3px solid var(--red); position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 20px rgba(45,53,128,.12); }
+    .header-inner { max-width: 1200px; margin: 0 auto; padding: .9rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .logos { display: flex; align-items: center; gap: 1.4rem; }
+    .logos img { height: 40px; width: auto; object-fit: contain; }
+    .logo-divider { width: 1px; height: 32px; background: var(--border); }
+    .dept-badge { background: var(--navy); color: var(--white); font-family: 'Syne', sans-serif; font-weight: 700; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; padding: .35rem .9rem; border-radius: 4px; white-space: nowrap; }
+    nav { display: flex; gap: .25rem; align-items: center; flex-wrap: wrap; }
+    nav a { font-size: .88rem; font-weight: 500; color: var(--navy); padding: .45rem .8rem; border-radius: 6px; transition: background .2s, color .2s; white-space: nowrap; }
     nav a:hover { background: var(--off); color: var(--red); }
     nav a.active { background: var(--navy); color: var(--white); }
 
-    /* ── HERO ───────────────────────────────── */
-    .hero {
-      background: linear-gradient(135deg, var(--navy-d) 0%, var(--navy) 55%, var(--navy-l) 100%);
-      color: var(--white);
-      padding: 5rem 2rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      right: -80px;
-      top: -80px;
-      width: 480px;
-      height: 480px;
-      border-radius: 50%;
-      border: 60px solid rgba(230,51,41,.12);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      right: 80px;
-      bottom: -120px;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      border: 40px solid rgba(255,255,255,.06);
-      pointer-events: none;
-    }
-    .hero-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-tag {
-      display: inline-block;
-      background: rgba(230,51,41,.25);
-      border: 1px solid rgba(230,51,41,.5);
-      color: #ffb3af;
-      font-size: .75rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      font-weight: 600;
-      padding: .35rem .85rem;
-      border-radius: 30px;
-      margin-bottom: 1.2rem;
-    }
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      line-height: 1.1;
-      margin-bottom: .75rem;
-    }
+    .hero { background: linear-gradient(135deg, var(--navy-d) 0%, var(--navy) 55%, var(--navy-l) 100%); color: var(--white); padding: 4.5rem 2rem 3.5rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; right: -80px; top: -80px; width: 480px; height: 480px; border-radius: 50%; border: 60px solid rgba(230,51,41,.12); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; right: 80px; bottom: -120px; width: 300px; height: 300px; border-radius: 50%; border: 40px solid rgba(255,255,255,.06); pointer-events: none; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-tag { display: inline-block; background: rgba(230,51,41,.25); border: 1px solid rgba(230,51,41,.5); color: #ffb3af; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; padding: .35rem .85rem; border-radius: 30px; margin-bottom: 1.2rem; }
+    .hero h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 4.5vw, 3rem); line-height: 1.1; margin-bottom: .75rem; }
     .hero h1 span { color: var(--red); }
-    .hero p {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,.78);
-      max-width: 580px;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-    }
-    .hero-stats {
-      display: flex;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-    }
-    .hero-stat strong {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--white);
-      display: block;
-    }
-    .hero-stat span {
-      font-size: .8rem;
-      color: rgba(255,255,255,.6);
-      letter-spacing: .04em;
-      text-transform: uppercase;
-    }
+    .hero p { font-size: 1rem; color: rgba(255,255,255,.78); max-width: 600px; line-height: 1.65; margin-bottom: 2rem; }
+    .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .hero-stat strong { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--white); display: block; }
+    .hero-stat span { font-size: .78rem; color: rgba(255,255,255,.6); letter-spacing: .04em; text-transform: uppercase; }
 
-    /* ── SECTION WRAPPERS ───────────────────── */
-    section { padding: 4rem 2rem; }
+    .audience-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 1rem 2rem; }
+    .audience-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .audience-label { font-size: .82rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+    .audience-tabs { display: flex; gap: .5rem; }
+    .aud-btn { padding: .5rem 1.4rem; border-radius: 8px; border: 1.5px solid var(--border); background: var(--off); font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: all .2s; }
+    .aud-btn.active { background: var(--navy); border-color: var(--navy); color: var(--white); }
+    .aud-btn:hover:not(.active) { border-color: var(--navy); color: var(--navy); }
+    .audience-note { font-size: .82rem; color: var(--muted); margin-left: auto; }
+
+    section { padding: 3.5rem 2rem; }
     .section-inner { max-width: 1200px; margin: 0 auto; }
-    .section-heading {
-      display: flex;
-      align-items: flex-end;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-    .section-heading h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.8rem;
-      color: var(--navy);
-      line-height: 1;
-    }
-    .section-heading .rule {
-      flex: 1;
-      height: 2px;
-      background: var(--border);
-      margin-bottom: 5px;
-    }
-    .section-heading .count {
-      font-size: .82rem;
-      color: var(--muted);
-      white-space: nowrap;
-      margin-bottom: 4px;
-    }
+    .section-heading { display: flex; align-items: flex-end; gap: 1rem; margin-bottom: 2.5rem; }
+    .section-heading h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.75rem; color: var(--navy); line-height: 1; }
+    .section-heading .rule { flex: 1; height: 2px; background: var(--border); margin-bottom: 5px; }
+    .section-heading .count { font-size: .82rem; color: var(--muted); white-space: nowrap; margin-bottom: 4px; }
 
-    /* ── RESOURCE LIBRARY ───────────────────── */
+    #overview { background: var(--navy-d); }
+    #overview .section-heading h2 { color: var(--white); }
+    #overview .section-heading .rule { background: rgba(255,255,255,.2); }
+    #overview .section-heading .count { color: rgba(255,255,255,.5); }
+    .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .overview-text { color: rgba(255,255,255,.85); }
+    .overview-text h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: .75rem; }
+    .overview-text p { font-size: .95rem; line-height: 1.7; margin-bottom: 1rem; }
+    .overview-text p:last-child { margin-bottom: 0; }
+    .video-wrapper { position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 12px; overflow: hidden; border: 2px solid rgba(255,255,255,.1); background: #0a0a0a; }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
     #resources { background: var(--white); }
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.25rem;
-    }
-    .resource-card {
-      background: var(--off);
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 1.4rem 1.5rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1.1rem;
-      transition: box-shadow .25s, border-color .25s, transform .2s;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .resource-card:hover {
-      border-color: var(--navy);
-      box-shadow: var(--card-shadow);
-      transform: translateY(-2px);
-    }
-    .resource-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
+    .resource-filters { display: flex; gap: .5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .filter-btn { padding: .35rem .9rem; border-radius: 20px; border: 1.5px solid var(--border); background: var(--off); font-size: .8rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: all .2s; }
+    .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+    .resource-card { background: var(--off); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.4rem 1.5rem; display: flex; align-items: flex-start; gap: 1.1rem; transition: box-shadow .25s, border-color .25s, transform .2s; cursor: pointer; text-decoration: none; }
+    .resource-card:hover { border-color: var(--navy); box-shadow: var(--card-shadow); transform: translateY(-2px); }
+    .resource-card[data-audience="crsc"] { border-left: 4px solid var(--amber); }
+    .resource-card[data-audience="agency"] { border-left: 4px solid var(--green); }
+    .resource-card[data-audience="both"] { border-left: 4px solid var(--navy); }
+    .resource-icon { width: 46px; height: 46px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
     .icon-pdf  { background: #fff0ef; color: var(--red); }
     .icon-pptx { background: #fff4e8; color: #d4560a; }
     .icon-doc  { background: #eef1ff; color: var(--navy); }
-    .icon-vid  { background: #f0fff4; color: #1a7a40; }
-    .icon-link { background: #f4eeff; color: #6b3fa8; }
     .resource-meta { flex: 1; min-width: 0; }
-    .resource-meta h3 {
-      font-size: .97rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: .3rem;
-      line-height: 1.3;
-    }
-    .resource-meta p {
-      font-size: .82rem;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-    .resource-tag {
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      padding: .2rem .6rem;
-      border-radius: 4px;
-      display: inline-block;
-      margin-top: .5rem;
-    }
+    .resource-meta h3 { font-size: .97rem; font-weight: 600; color: var(--text); margin-bottom: .3rem; line-height: 1.3; }
+    .resource-meta p { font-size: .82rem; color: var(--muted); line-height: 1.4; }
+    .res-tags { display: flex; gap: .4rem; margin-top: .5rem; flex-wrap: wrap; }
+    .resource-tag { font-size: .68rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .18rem .55rem; border-radius: 4px; display: inline-block; }
     .tag-pdf  { background: #fff0ef; color: var(--red); }
     .tag-pptx { background: #fff4e8; color: #d4560a; }
     .tag-doc  { background: #eef1ff; color: var(--navy); }
-    .tag-vid  { background: #f0fff4; color: #1a7a40; }
-    .tag-link { background: #f4eeff; color: #6b3fa8; }
+    .tag-crsc { background: #fff8ed; color: #7a4800; }
+    .tag-agency { background: #f0fff4; color: var(--green); }
+    .tag-all  { background: #eef0ff; color: var(--navy); }
+    .resource-card.hidden { display: none; }
 
-    /* ── TRAINING BOOKLET ───────────────────── */
     #booklet { background: var(--off); }
-    .booklet-layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
+    .booklet-layout { display: grid; grid-template-columns: 270px 1fr; gap: 2rem; align-items: start; }
 
-    /* TOC Sidebar */
-    .toc {
-      position: sticky;
-      top: 82px;
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
-    }
-    .toc-header {
-      background: var(--navy);
-      color: var(--white);
-      padding: 1rem 1.25rem;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: .85rem;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-    }
+    .toc { position: sticky; top: 82px; background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); }
+    .toc-header { background: var(--navy); color: var(--white); padding: 1rem 1.25rem; font-family: 'Syne', sans-serif; font-weight: 700; font-size: .85rem; letter-spacing: .07em; text-transform: uppercase; }
     .toc-list { list-style: none; padding: .5rem 0; }
-    .toc-list li a {
-      display: block;
-      padding: .6rem 1.25rem;
-      font-size: .875rem;
-      color: var(--text);
-      border-left: 3px solid transparent;
-      transition: background .2s, border-color .2s, color .2s;
-      line-height: 1.4;
-    }
-    .toc-list li a:hover {
-      background: var(--off);
-      border-left-color: var(--navy);
-      color: var(--navy);
-    }
-    .toc-list li a.toc-active {
-      background: #eef0ff;
-      border-left-color: var(--red);
-      color: var(--navy);
-      font-weight: 600;
-    }
-    .toc-list li.toc-section > a {
-      font-size: .78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--muted);
-      padding-top: 1rem;
-      pointer-events: none;
-      cursor: default;
-    }
-    .toc-list li.toc-section > a:hover { background: none; border-left-color: transparent; }
+    .toc-list li a { display: block; padding: .55rem 1.25rem; font-size: .875rem; color: var(--text); border-left: 3px solid transparent; transition: background .2s, border-color .2s, color .2s; line-height: 1.4; }
+    .toc-list li a:hover { background: var(--off); border-left-color: var(--navy); color: var(--navy); }
+    .toc-list li a.toc-active { background: #eef0ff; border-left-color: var(--red); color: var(--navy); font-weight: 600; }
+    .toc-list li.toc-cat > a { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding-top: 1rem; pointer-events: none; cursor: default; }
+    .toc-list li.toc-cat > a:hover { background: none; border-left-color: transparent; }
     .toc-list li.toc-sub > a { padding-left: 2rem; font-size: .84rem; }
-    .toc-progress {
-      padding: .75rem 1.25rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-    }
-    .progress-bar {
-      flex: 1;
-      height: 5px;
-      background: var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--navy), var(--red));
-      border-radius: 10px;
-      transition: width .4s ease;
-    }
+    .toc-crsc-tag { font-size: .63rem; background: #fff8ed; color: #7a4800; padding: .1rem .4rem; border-radius: 3px; font-weight: 700; margin-left: .3rem; letter-spacing: .04em; vertical-align: middle; }
+    .toc-progress { padding: .75rem 1.25rem; border-top: 1px solid var(--border); display: flex; align-items: center; gap: .75rem; }
+    .progress-bar { flex: 1; height: 5px; background: var(--border); border-radius: 10px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--navy), var(--red)); border-radius: 10px; transition: width .4s ease; }
     .progress-label { font-size: .75rem; color: var(--muted); white-space: nowrap; }
 
-    /* Booklet Content */
     .booklet-content { min-width: 0; }
-    .booklet-section {
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 14px;
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-      scroll-margin-top: 100px;
-    }
-    .bs-header {
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      cursor: pointer;
-      user-select: none;
-    }
+    .booklet-section { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; margin-bottom: 1.5rem; overflow: hidden; scroll-margin-top: 110px; }
+    .booklet-section.crsc-only { border-top: 4px solid var(--amber); }
+    .booklet-section.agency-section { border-top: 4px solid var(--navy); }
+    .booklet-section.billing-section { border-top: 4px solid var(--red); }
+    .bs-header { padding: 1.4rem 1.75rem; border-bottom: 1px solid transparent; display: flex; align-items: center; gap: 1rem; cursor: pointer; user-select: none; }
     .bs-header:hover .bs-toggle { color: var(--red); }
-    .bs-num {
-      width: 36px;
-      height: 36px;
-      background: var(--navy);
-      color: var(--white);
-      border-radius: 8px;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: .95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .bs-title {
-      flex: 1;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--navy);
-    }
-    .bs-toggle {
-      font-size: 1.2rem;
-      color: var(--muted);
-      transition: transform .3s, color .2s;
-    }
+    .bs-num { width: 36px; height: 36px; background: var(--navy); color: var(--white); border-radius: 8px; font-family: 'Syne', sans-serif; font-weight: 800; font-size: .92rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .crsc-only .bs-num { background: var(--amber); }
+    .billing-section .bs-num { background: var(--red); }
+    .bs-title-wrap { flex: 1; }
+    .bs-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--navy); line-height: 1.2; }
+    .bs-subtitle { font-size: .78rem; color: var(--muted); margin-top: .2rem; }
+    .crsc-badge { display: inline-block; background: #fff8ed; border: 1px solid #e68a00; color: #7a4800; font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: .2rem .55rem; border-radius: 4px; margin-left: .5rem; vertical-align: middle; }
+    .billing-badge { display: inline-block; background: #fff0ef; border: 1px solid var(--red); color: var(--red-d); font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: .2rem .55rem; border-radius: 4px; margin-left: .5rem; vertical-align: middle; }
+    .bs-toggle { font-size: 1.2rem; color: var(--muted); transition: transform .3s, color .2s; }
     .bs-toggle.open { transform: rotate(180deg); color: var(--red); }
-    .bs-body {
-      padding: 2rem;
-      display: none;
-    }
+    .bs-body { padding: 1.75rem 2rem; display: none; border-top: 1px solid var(--border); }
     .bs-body.open { display: block; }
-    .bs-body p {
-      font-size: .96rem;
-      line-height: 1.75;
-      color: #3a3d5a;
-      margin-bottom: 1rem;
-    }
+    .bs-body p { font-size: .95rem; line-height: 1.75; color: #3a3d5a; margin-bottom: 1rem; }
     .bs-body p:last-child { margin-bottom: 0; }
-    .bs-body h4 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: .95rem;
-      color: var(--navy);
-      margin: 1.5rem 0 .6rem;
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
-    .bs-body h4::before {
-      content: '';
-      width: 4px;
-      height: 16px;
-      background: var(--red);
-      border-radius: 2px;
-      display: inline-block;
-    }
-    .bs-body ul {
-      list-style: none;
-      margin: .75rem 0 1.25rem;
-    }
-    .bs-body ul li {
-      font-size: .94rem;
-      color: #3a3d5a;
-      padding: .4rem 0 .4rem 1.4rem;
-      position: relative;
-      border-bottom: 1px solid var(--border);
-      line-height: 1.5;
-    }
+    .bs-body h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .93rem; color: var(--navy); margin: 1.5rem 0 .6rem; display: flex; align-items: center; gap: .5rem; }
+    .bs-body h4::before { content: ''; width: 4px; height: 16px; background: var(--red); border-radius: 2px; display: inline-block; flex-shrink: 0; }
+    .bs-body ul { list-style: none; margin: .75rem 0 1.25rem; }
+    .bs-body ul li { font-size: .93rem; color: #3a3d5a; padding: .4rem 0 .4rem 1.4rem; position: relative; border-bottom: 1px solid var(--border); line-height: 1.55; }
     .bs-body ul li:last-child { border-bottom: none; }
-    .bs-body ul li::before {
-      content: '›';
-      position: absolute;
-      left: 0;
-      color: var(--red);
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
+    .bs-body ul li::before { content: '›'; position: absolute; left: 0; color: var(--red); font-weight: 700; font-size: 1.1rem; }
 
-    /* Callout boxes */
-    .callout {
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      margin: 1.25rem 0;
-      font-size: .92rem;
-      line-height: 1.6;
-      display: flex;
-      gap: .85rem;
-      align-items: flex-start;
-    }
+    .callout { border-radius: 10px; padding: 1rem 1.25rem; margin: 1.25rem 0; font-size: .92rem; line-height: 1.65; display: flex; gap: .85rem; align-items: flex-start; }
     .callout-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
-    .callout.info { background: #eef0ff; border-left: 4px solid var(--navy); color: var(--navy-d); }
-    .callout.tip  { background: #f0fff4; border-left: 4px solid #1a7a40; color: #155a30; }
-    .callout.warn { background: #fff8ed; border-left: 4px solid #e68a00; color: #7a4800; }
+    .callout.info  { background: #eef0ff; border-left: 4px solid var(--navy); color: var(--navy-d); }
+    .callout.tip   { background: #f0fff4; border-left: 4px solid var(--green); color: #155a30; }
+    .callout.warn  { background: #fff8ed; border-left: 4px solid var(--amber); color: #7a4800; }
+    .callout.alert { background: #fff0ef; border-left: 4px solid var(--red); color: var(--red-d); }
+    .callout.crsc  { background: #fff8ed; border-left: 4px solid var(--amber); color: #7a4800; }
+    .callout strong { font-weight: 700; }
 
-    /* Video embed */
-    .video-block {
-      margin: 1.5rem 0;
-    }
-    .video-label {
-      font-size: .8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--muted);
-      margin-bottom: .6rem;
-      display: flex;
-      align-items: center;
-      gap: .4rem;
-    }
-    .video-label::before {
-      content: '▶';
-      color: var(--red);
-      font-size: .75rem;
-    }
-    .video-wrapper {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1.5px solid var(--border);
-      background: #0a0a0a;
-    }
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    .video-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #0f1229, #1e2460);
-      color: rgba(255,255,255,.7);
-      gap: .75rem;
-    }
-    .video-placeholder .play-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: rgba(230,51,41,.85);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-    }
-    .video-placeholder p { font-size: .9rem; opacity: .7; }
-    .video-placeholder small { font-size: .75rem; opacity: .5; }
+    .steps { display: flex; flex-direction: column; gap: 0; margin: 1.25rem 0; }
+    .step { display: flex; gap: 1rem; position: relative; }
+    .step-left { display: flex; flex-direction: column; align-items: center; }
+    .step-dot { width: 30px; height: 30px; border-radius: 50%; background: var(--navy); color: var(--white); font-family: 'Syne', sans-serif; font-weight: 800; font-size: .78rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; }
+    .step:not(:last-child) .step-line { width: 2px; flex: 1; min-height: 20px; background: var(--border); margin: 4px 0; }
+    .step-content { padding-bottom: 1.25rem; flex: 1; }
+    .step-content h5 { font-weight: 600; font-size: .94rem; color: var(--navy); margin-bottom: .35rem; }
+    .step-content p { font-size: .87rem !important; margin-bottom: 0 !important; color: var(--muted) !important; line-height: 1.5 !important; }
+    .step-content .note { font-size: .8rem !important; color: var(--amber) !important; font-weight: 600 !important; margin-top: .25rem !important; }
 
-    /* Step indicator */
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin: 1.25rem 0;
-    }
-    .step {
-      display: flex;
-      gap: 1rem;
-      position: relative;
-    }
-    .step-left {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .step-dot {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--navy);
-      color: var(--white);
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: .75rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      z-index: 1;
-    }
-    .step:not(:last-child) .step-line {
-      width: 2px;
-      flex: 1;
-      min-height: 20px;
-      background: var(--border);
-      margin: 4px 0;
-    }
-    .step-content {
-      padding-bottom: 1.25rem;
-      flex: 1;
-    }
-    .step-content h5 {
-      font-weight: 600;
-      font-size: .94rem;
-      color: var(--navy);
-      margin-bottom: .35rem;
-    }
-    .step-content p {
-      font-size: .88rem !important;
-      margin-bottom: 0 !important;
-      color: var(--muted) !important;
-    }
+    .video-block { margin: 1.5rem 0; }
+    .video-label { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .6rem; display: flex; align-items: center; gap: .4rem; }
+    .video-label::before { content: '▶'; color: var(--red); font-size: .75rem; }
+    .video-ph { position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 10px; overflow: hidden; border: 2px dashed var(--border); background: linear-gradient(135deg, #0f1229, #1e2460); }
+    .video-ph-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; color: rgba(255,255,255,.6); }
+    .video-ph-inner .play-icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(230,51,41,.8); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #fff; }
+    .video-ph-inner p { font-size: .9rem; }
+    .video-ph-inner small { font-size: .75rem; opacity: .6; }
 
-    /* ── FOOTER ─────────────────────────────── */
-    footer {
-      background: var(--navy-d);
-      color: rgba(255,255,255,.6);
-      padding: 2rem;
-      text-align: center;
-      font-size: .82rem;
-    }
+    .ss-block { margin: 1.25rem 0; }
+    .ss-label { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .6rem; display: flex; align-items: center; gap: .4rem; }
+    .ss-label::before { content: '🖼'; font-size: .8rem; }
+    .ss-ph { background: var(--off); border: 2px dashed var(--border); border-radius: 10px; padding: 2rem; text-align: center; color: var(--muted); font-size: .87rem; }
+    .ss-ph strong { display: block; font-size: .9rem; color: var(--navy); margin-bottom: .25rem; }
+
+    .faq-list { margin: 1rem 0; display: flex; flex-direction: column; gap: .75rem; }
+    .faq-item { border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .faq-q { padding: .9rem 1.25rem; font-weight: 600; font-size: .93rem; color: var(--navy); cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: var(--off); user-select: none; }
+    .faq-q:hover { background: #eef0ff; }
+    .faq-q .faq-arrow { color: var(--muted); transition: transform .25s; font-size: .9rem; }
+    .faq-q .faq-arrow.open { transform: rotate(180deg); color: var(--red); }
+    .faq-a { padding: 0 1.25rem; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s; }
+    .faq-a.open { max-height: 500px; padding: .9rem 1.25rem; border-top: 1px solid var(--border); }
+    .faq-a p { font-size: .9rem; color: #3a3d5a; line-height: 1.65; margin-bottom: .5rem; }
+    .faq-a p:last-child { margin-bottom: 0; }
+
+    .status-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: .75rem; margin: 1rem 0; }
+    .status-pill { border-radius: 8px; padding: .75rem 1rem; font-size: .85rem; font-weight: 600; }
+    .status-pill .pill-label { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; opacity: .7; display: block; margin-bottom: .2rem; }
+    .s-new     { background: #eef0ff; color: var(--navy); }
+    .s-pending { background: #fff8ed; color: #7a4800; }
+    .s-approved{ background: #f0fff4; color: var(--green); }
+    .s-denied  { background: #fff0ef; color: var(--red-d); }
+
+    .contact-box { background: var(--navy); color: #fff; border-radius: 12px; padding: 1.5rem; display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; margin-top: 1.5rem; }
+    .contact-item { display: flex; align-items: center; gap: .75rem; }
+    .contact-icon { width: 40px; height: 40px; border-radius: 8px; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-text small { font-size: .72rem; opacity: .6; text-transform: uppercase; letter-spacing: .06em; display: block; }
+    .contact-text strong { font-size: .95rem; }
+
+    footer { background: var(--navy-d); color: rgba(255,255,255,.6); padding: 2rem; text-align: center; font-size: .82rem; }
     footer strong { color: rgba(255,255,255,.9); }
 
-    /* ── RESPONSIVE ─────────────────────────── */
-    @media (max-width: 860px) {
-      .booklet-layout { grid-template-columns: 1fr; }
-      .toc { position: static; }
-      .header-inner { flex-wrap: wrap; gap: .75rem; }
-    }
-    @media (max-width: 540px) {
-      .hero { padding: 3rem 1.25rem 2.5rem; }
-      section { padding: 2.5rem 1.25rem; }
-      .logos img { height: 30px; }
-    }
+    @media (max-width: 900px) { .booklet-layout { grid-template-columns: 1fr; } .toc { position: static; } .overview-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .hero { padding: 3rem 1.25rem 2.5rem; } section { padding: 2.5rem 1.25rem; } .logos img { height: 30px; } }
 
-    /* ── ANIMATIONS ─────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .hero-inner > * {
-      animation: fadeUp .55s ease both;
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-inner > * { animation: fadeUp .55s ease both; }
     .hero-inner > *:nth-child(1) { animation-delay: .05s; }
     .hero-inner > *:nth-child(2) { animation-delay: .15s; }
     .hero-inner > *:nth-child(3) { animation-delay: .25s; }
@@ -639,120 +248,160 @@
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">City of Chicago · Enterprise Content Management (ECM) · Training Portal</div>
+<div class="perf-banner">
+  <span class="perf-icon">📊</span>
+  <div>
+    <strong>Performance-Based Contract:</strong>
+    <span>Your agency is measured on <strong>Enrollments</strong> and <strong>Retention 30</strong> milestones. Timely and accurate ECM entries directly impact your reimbursements. See the Auto Payment Billing section for details.</span>
+  </div>
+</div>
 
-<!-- HEADER -->
+<div class="topbar">City of Chicago · DFSS · Enterprise Content Management (ECM) · Workforce Division Training Portal</div>
+
 <header>
   <div class="header-inner">
     <div class="logos">
-      <!-- Replace src paths with actual hosted logo URLs on GitHub Pages -->
-      <img src="william_everett_logo.png" alt="William Everett" />
+      <img src="william_everett_logo.png" alt="William Everett"/>
       <div class="logo-divider"></div>
-      <img src="Adsystechlogo_vertical.png" alt="Adsystech" style="filter:brightness(0) saturate(100%) invert(18%) sepia(80%) saturate(700%) hue-rotate(200deg);" />
+      <img src="Adsystechlogo_vertical.png" alt="Adsystech" style="filter:brightness(0) saturate(100%) invert(18%) sepia(80%) saturate(700%) hue-rotate(200deg);"/>
     </div>
     <div class="dept-badge">Workforce Division</div>
     <nav>
-      <a href="#resources" class="active">Resources</a>
-      <a href="#booklet">Training Guide</a>
+      <a href="#overview">Overview</a>
+      <a href="#resources">Resources</a>
+      <a href="#booklet" class="active">Training Guide</a>
+      <a href="#billing-anchor">💳 Billing</a>
     </nav>
   </div>
 </header>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-tag">ECM Training Portal</div>
+    <div class="hero-tag">ECM Training Portal · Workforce Division</div>
     <h1>Workforce Division<br><span>Training Hub</span></h1>
-    <p>Your central resource for ECM system training. Access guides, materials, and step-by-step walkthroughs specific to Workforce Division processes.</p>
+    <p>Your central resource for ECM system training. This guide covers the full Workforce process — from intake through job placement and billing — for both CRSC staff and Workforce Agencies.</p>
     <div class="hero-stats">
-      <div class="hero-stat">
-        <strong id="resource-count">0</strong>
-        <span>Training Resources</span>
-      </div>
-      <div class="hero-stat">
-        <strong>5</strong>
-        <span>Guide Sections</span>
-      </div>
-      <div class="hero-stat">
-        <strong>WFD</strong>
-        <span>Department Code</span>
-      </div>
+      <div class="hero-stat"><strong>2</strong><span>Staff Audiences</span></div>
+      <div class="hero-stat"><strong>8</strong><span>Guide Sections</span></div>
+      <div class="hero-stat"><strong>WFD</strong><span>Department Code</span></div>
+      <div class="hero-stat"><strong>R30</strong><span>Key Milestone</span></div>
     </div>
   </div>
 </div>
 
-<!-- ── RESOURCE LIBRARY ───────────────────────── -->
+<div class="audience-bar">
+  <div class="audience-inner">
+    <span class="audience-label">I am a:</span>
+    <div class="audience-tabs">
+      <button class="aud-btn active" onclick="setAudience('all', this)">All Staff</button>
+      <button class="aud-btn" onclick="setAudience('crsc', this)">CRSC Staff</button>
+      <button class="aud-btn" onclick="setAudience('agency', this)">Workforce Agency</button>
+    </div>
+    <span class="audience-note">Select your role to highlight relevant sections</span>
+  </div>
+</div>
+
+<section id="overview">
+  <div class="section-inner">
+    <div class="section-heading">
+      <h2>🎬 System Overview Video</h2>
+      <div class="rule"></div>
+      <span class="count">Full ECM Walkthrough · 21 min</span>
+    </div>
+    <div class="overview-grid">
+      <div class="overview-text">
+        <h3>Navigating ECM — DFSS Workforce Program</h3>
+        <p>This video provides a complete walkthrough of the ECM system for the Workforce program. It covers the full process from intake through job placement and reporting.</p>
+        <p>Watch this first to get a full-picture overview before diving into the step-by-step sections below. The sections in the training guide will go deeper into each area with screenshots and focused guidance.</p>
+        <div class="callout info" style="margin-top:1rem;">
+          <span class="callout-icon">ℹ️</span>
+          <div>This video covers the overall process. For step-by-step instructions with screenshots, refer to the <strong>Interactive Training Guide</strong> sections below.</div>
+        </div>
+      </div>
+      <div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/iDi-aBYgYIE?rel=0&modestbranding=1"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="resources">
   <div class="section-inner">
     <div class="section-heading">
       <h2>📂 Resource Library</h2>
       <div class="rule"></div>
-      <span class="count" id="res-count-label">Loading…</span>
+      <span class="count" id="res-count-label">All Resources</span>
     </div>
-
+    <div class="resource-filters">
+      <button class="filter-btn active" onclick="filterResources('all', this)">All</button>
+      <button class="filter-btn" onclick="filterResources('crsc', this)">CRSC Only</button>
+      <button class="filter-btn" onclick="filterResources('agency', this)">Workforce Agencies</button>
+      <button class="filter-btn" onclick="filterResources('both', this)">All Staff</button>
+    </div>
     <div class="resource-grid" id="resource-grid">
-      <!-- RESOURCE CARDS – replace href="#" with actual file URLs -->
 
-      <a class="resource-card" href="#" target="_blank">
+      <a class="resource-card" href="#" target="_blank" data-audience="both">
         <div class="resource-icon icon-pdf">📄</div>
         <div class="resource-meta">
-          <h3>Workforce ECM Quick Reference Guide</h3>
-          <p>One-page summary of key ECM fields and workflows for Workforce staff.</p>
-          <span class="resource-tag tag-pdf">PDF</span>
+          <h3>Workforce Guidance Document V2 2024</h3>
+          <p>Complete system access, training and user guide for the DFSS Workforce Development Program.</p>
+          <div class="res-tags"><span class="resource-tag tag-pdf">PDF</span><span class="resource-tag tag-all">All Staff</span></div>
         </div>
       </a>
 
-      <a class="resource-card" href="#" target="_blank">
-        <div class="resource-icon icon-pptx">📊</div>
-        <div class="resource-meta">
-          <h3>ECM Onboarding Presentation</h3>
-          <p>Slide deck used during initial Workforce ECM onboarding sessions.</p>
-          <span class="resource-tag tag-pptx">PowerPoint</span>
-        </div>
-      </a>
-
-      <a class="resource-card" href="#" target="_blank">
+      <a class="resource-card" href="#" target="_blank" data-audience="crsc">
         <div class="resource-icon icon-doc">📝</div>
         <div class="resource-meta">
-          <h3>Client Intake SOP</h3>
-          <p>Step-by-step standard operating procedure for entering new client intakes.</p>
-          <span class="resource-tag tag-doc">Word Doc</span>
+          <h3>CRSC Encounter Page Guide</h3>
+          <p>Step-by-step instructions for using the Encounter page, including walk-in intake and referrals to workforce agencies.</p>
+          <div class="res-tags"><span class="resource-tag tag-doc">Word Doc</span><span class="resource-tag tag-crsc">CRSC Only</span></div>
         </div>
       </a>
 
-      <a class="resource-card" href="#" target="_blank">
+      <a class="resource-card" href="#" target="_blank" data-audience="both">
+        <div class="resource-icon icon-pptx">📊</div>
+        <div class="resource-meta">
+          <h3>ECM Workforce Onboarding Presentation</h3>
+          <p>Slide deck used during onboarding sessions for new Workforce staff and agencies.</p>
+          <div class="res-tags"><span class="resource-tag tag-pptx">PowerPoint</span><span class="resource-tag tag-all">All Staff</span></div>
+        </div>
+      </a>
+
+      <a class="resource-card" href="#" target="_blank" data-audience="agency">
         <div class="resource-icon icon-pdf">📄</div>
         <div class="resource-meta">
-          <h3>Application Status Codes Reference</h3>
-          <p>Definitions and guidance for all application status codes used in ECM.</p>
-          <span class="resource-tag tag-pdf">PDF</span>
+          <h3>Auto Payment Billing Quick Reference</h3>
+          <p>One-page guide to creating, submitting, and tracking vouchers in ECM.</p>
+          <div class="res-tags"><span class="resource-tag tag-pdf">PDF</span><span class="resource-tag tag-agency">Agencies</span></div>
         </div>
       </a>
 
-      <a class="resource-card" href="#" target="_blank">
-        <div class="resource-icon icon-pptx">📊</div>
-        <div class="resource-meta">
-          <h3>Deduplication & Client Search Training</h3>
-          <p>How to search for existing clients and avoid duplicate records in ECM.</p>
-          <span class="resource-tag tag-pptx">PowerPoint</span>
-        </div>
-      </a>
-
-      <a class="resource-card" href="#" target="_blank">
+      <a class="resource-card" href="#" target="_blank" data-audience="agency">
         <div class="resource-icon icon-doc">📝</div>
         <div class="resource-meta">
-          <h3>Encounter Documentation Guide</h3>
-          <p>Instructions for logging service encounters and tracking client progress.</p>
-          <span class="resource-tag tag-doc">Word Doc</span>
+          <h3>IEP & Enrollment SOP</h3>
+          <p>Standard operating procedure for setting goals, creating IEPs, enrolling clients and tracking progress notes.</p>
+          <div class="res-tags"><span class="resource-tag tag-doc">Word Doc</span><span class="resource-tag tag-agency">Agencies</span></div>
         </div>
       </a>
 
-    </div><!-- /resource-grid -->
+      <a class="resource-card" href="#" target="_blank" data-audience="both">
+        <div class="resource-icon icon-pdf">📄</div>
+        <div class="resource-meta">
+          <h3>Client Deduplication Reference</h3>
+          <p>How to search for existing clients and avoid duplicate records that affect reporting.</p>
+          <div class="res-tags"><span class="resource-tag tag-pdf">PDF</span><span class="resource-tag tag-all">All Staff</span></div>
+        </div>
+      </a>
+
+    </div>
   </div>
 </section>
 
-<!-- ── TRAINING BOOKLET ───────────────────────── -->
 <section id="booklet">
   <div class="section-inner">
     <div class="section-heading">
@@ -763,258 +412,443 @@
 
     <div class="booklet-layout">
 
-      <!-- TABLE OF CONTENTS -->
       <aside>
         <div class="toc">
           <div class="toc-header">📋 Table of Contents</div>
-          <ul class="toc-list" id="toc-list">
-            <li class="toc-section"><a href="#">Getting Started</a></li>
-            <li class="toc-sub"><a href="#s1" class="toc-link">1. System Overview</a></li>
-            <li class="toc-sub"><a href="#s2" class="toc-link">2. Logging In & Navigation</a></li>
-            <li class="toc-section"><a href="#">Client Management</a></li>
-            <li class="toc-sub"><a href="#s3" class="toc-link">3. Searching & Deduplication</a></li>
-            <li class="toc-sub"><a href="#s4" class="toc-link">4. Creating a New Application</a></li>
-            <li class="toc-section"><a href="#">Service Delivery</a></li>
-            <li class="toc-sub"><a href="#s5" class="toc-link">5. Recording Encounters</a></li>
+          <ul class="toc-list">
+            <li class="toc-cat"><a href="#">CRSC Workflow</a></li>
+            <li class="toc-sub"><a href="#s1" class="toc-link">1. Encounter Page <span class="toc-crsc-tag">CRSC</span></a></li>
+            <li class="toc-sub"><a href="#s2" class="toc-link">2. Referring a Client <span class="toc-crsc-tag">CRSC</span></a></li>
+            <li class="toc-cat"><a href="#">Intake (All Staff)</a></li>
+            <li class="toc-sub"><a href="#s3" class="toc-link">3. Find / Create Account</a></li>
+            <li class="toc-sub"><a href="#s4" class="toc-link">4. Create an Application</a></li>
+            <li class="toc-cat"><a href="#">Workforce Placement</a></li>
+            <li class="toc-sub"><a href="#s5" class="toc-link">5. Goals & IEP</a></li>
+            <li class="toc-sub"><a href="#s6" class="toc-link">6. Enroll & Employ</a></li>
+            <li class="toc-sub"><a href="#s7" class="toc-link">7. Retention Tracking</a></li>
+            <li class="toc-cat"><a href="#">Billing & Reporting</a></li>
+            <li class="toc-sub"><a href="#s8" class="toc-link">8. Auto Payment Billing ⚠️</a></li>
           </ul>
           <div class="toc-progress">
             <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-            <span class="progress-label" id="progress-label">0 / 5</span>
+            <span class="progress-label" id="progress-label">0 / 8</span>
           </div>
         </div>
       </aside>
 
-      <!-- BOOKLET SECTIONS -->
       <div class="booklet-content">
 
-        <!-- SECTION 1 -->
-        <div class="booklet-section" id="s1">
+        <div class="booklet-section crsc-only" id="s1">
           <div class="bs-header" onclick="toggleSection(this)">
             <div class="bs-num">1</div>
-            <div class="bs-title">System Overview</div>
-            <div class="bs-toggle">▾</div>
+            <div class="bs-title-wrap">
+              <div class="bs-title">Encounter Page <span class="crsc-badge">CRSC Only</span></div>
+              <div class="bs-subtitle">Walk-in client intake and outreach service tracking</div>
+            </div>
+            <div class="bs-toggle open">▾</div>
           </div>
           <div class="bs-body open">
-            <p>The Enterprise Content Management (ECM) system is the City of Chicago's centralized platform for tracking client services across multiple departments. For the Workforce Division, ECM serves as the primary tool for managing workforce development program participants from intake through case closure.</p>
-
-            <div class="callout info">
-              <span class="callout-icon">ℹ️</span>
-              <div>ECM is accessed through a web browser — no software installation required. Always use your assigned City of Chicago credentials to log in. Do not share login credentials.</div>
+            <div class="callout crsc">
+              <span class="callout-icon">🏢</span>
+              <div><strong>CRSC Staff:</strong> This section is specific to your role. Before creating an application, you must complete the Encounter page for all walk-in clients. This is how DFSS tracks the full universe of services your team provides — even when a client does not enroll or get placed.</div>
             </div>
-
-            <h4>What ECM Manages for Workforce</h4>
+            <p>As a CRSC, you serve many walk-in clients. The Encounter page (Outreach Service page) allows you to document every interaction — regardless of whether the client moves forward to enrollment. DFSS requires this data to understand the complete scope of your team's work.</p>
+            <h4>When to Use the Encounter Page</h4>
             <ul>
-              <li>Client intake applications and eligibility determinations</li>
-              <li>Program enrollment and participation tracking</li>
-              <li>Service encounter documentation</li>
-              <li>Outcome and placement recording</li>
-              <li>Reporting for federal and city compliance requirements</li>
+              <li>Every walk-in client, even if no services are provided that day</li>
+              <li>Phone contacts and outreach interactions</li>
+              <li>Clients you are assessing for potential workforce referral</li>
+              <li>Clients who are not ready for enrollment but may return later</li>
             </ul>
-
-            <div class="video-block">
-              <div class="video-label">Video Walkthrough — System Overview</div>
-              <div class="video-wrapper">
-                <!-- Replace VIDEO_ID with your YouTube video ID -->
-                <!-- Example: src="https://www.youtube.com/embed/dQw4w9WgXcQ" -->
-                <div class="video-placeholder">
-                  <div class="play-icon">▶</div>
-                  <p>System Overview Video</p>
-                  <small>Replace VIDEO_ID in the source code with your YouTube video ID</small>
-                </div>
-                <!-- UNCOMMENT & REPLACE VIDEO_ID when ready:
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
-                -->
-              </div>
+            <h4>Step 1 — Navigate to the Outreach Service Page</h4>
+            <div class="steps">
+              <div class="step"><div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h5>Select "Outreach Service" from the left navigation</h5><p>Found under the Services dropdown on the top left of the page.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h5>Search for the client using the Look-Up bar</h5><p>Enter first name and last name, then click Search & Add.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div><div class="step-content"><h5>Select or create the client account</h5><p>If a match exists, verify using DOB, SSN, or Address and click Select. If no match, click Create New Account.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">4</div><div class="step-line"></div></div><div class="step-content"><h5>Click "+ ADD" next to Outreach Services Tracking</h5><p>This opens the service entry form.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">5</div></div><div class="step-content"><h5>Select services provided and add a comment</h5><p>If no services were provided yet, select "No Services Provided – Only Inquiry." Always fill in the comment section with notes about the interaction.</p><p class="note">⚠️ Continue adding to this page even after enrollment or placement.</p></div></div>
             </div>
-
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — Outreach Service Page</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the Outreach Service page with the Look-Up bar, client demographics, and the "+ ADD" button next to Outreach Services Tracking highlighted</div>
+            </div>
+            <div class="video-block">
+              <div class="video-label">Video Walkthrough — Encounter Page (CRSC)</div>
+              <div class="video-ph"><div class="video-ph-inner"><div class="play-icon">▶</div><p>CRSC Encounter Page Walkthrough</p><small>Replace VIDEO_ID: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;</small></div></div>
+            </div>
           </div>
         </div>
 
-        <!-- SECTION 2 -->
-        <div class="booklet-section" id="s2">
+        <div class="booklet-section crsc-only" id="s2">
           <div class="bs-header" onclick="toggleSection(this)">
             <div class="bs-num">2</div>
-            <div class="bs-title">Logging In & Navigation</div>
-            <div class="bs-toggle">▾</div>
+            <div class="bs-title-wrap">
+              <div class="bs-title">Referring a Client to a Workforce Agency <span class="crsc-badge">CRSC Only</span></div>
+              <div class="bs-subtitle">How to refer clients from the Encounter page</div>
+            </div>
+            <div class="bs-toggle open">▾</div>
           </div>
           <div class="bs-body open">
-            <p>Before you can begin working in ECM, you must have an active account provisioned by your ECM Administrator. If you do not have credentials, contact your supervisor or the ECM support team.</p>
-
-            <h4>Login Steps</h4>
+            <p>When a walk-in client is seeking employment, CRSCs can refer them to a Workforce Agency directly through the Encounter page. Once the referral is made, the receiving agency takes over the Workforce process. CRSCs can also refer clients to themselves if their site provides workforce services.</p>
+            <div class="callout info">
+              <span class="callout-icon">📞</span>
+              <div><strong>After making a referral:</strong> ECM will display the referred agency's phone number. Give the agency a courtesy call to let them know a client has been referred and to expect them. This warm handoff improves client follow-through and is a best practice.</div>
+            </div>
+            <h4>Making a Referral</h4>
             <div class="steps">
-              <div class="step">
-                <div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div>
-                <div class="step-content"><h5>Open your browser</h5><p>Use Google Chrome or Microsoft Edge for the best experience.</p></div>
-              </div>
-              <div class="step">
-                <div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div>
-                <div class="step-content"><h5>Navigate to the ECM URL</h5><p>Enter the ECM portal address provided by your administrator.</p></div>
-              </div>
-              <div class="step">
-                <div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div>
-                <div class="step-content"><h5>Enter your credentials</h5><p>Use your assigned username and password. These are separate from your City email credentials.</p></div>
-              </div>
-              <div class="step">
-                <div class="step-left"><div class="step-dot">4</div><div class="step-line"></div></div>
-                <div class="step-content"><h5>Select the Workforce program</h5><p>From the program selector, choose your assigned Workforce program to load the correct view.</p></div>
-              </div>
+              <div class="step"><div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h5>Complete the Encounter page entry first</h5><p>Document the services provided (or "No Services Provided") before initiating a referral.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h5>Locate the Referral option on the Encounter page</h5><p>Select a Workforce Agency to refer the client to.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div><div class="step-content"><h5>Select the Workforce Agency</h5><p>Choose the appropriate agency from the referral list. If referring to your own site, select your CRSC agency.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">4</div><div class="step-line"></div></div><div class="step-content"><h5>Note the agency's phone number displayed</h5><p>Call the agency to give them a heads-up about the referred client.</p><p class="note">📞 This phone call is not required in ECM but is a strongly recommended best practice.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">5</div></div><div class="step-content"><h5>Save the referral and continue monitoring via the Encounter page</h5><p>You can continue adding notes about follow-up contacts with the client even after the referral.</p></div></div>
             </div>
-
-            <div class="callout warn">
-              <span class="callout-icon">⚠️</span>
-              <div>Always log out when you leave your workstation. Use the Logout button in the top-right corner — do not simply close the browser tab.</div>
+            <div class="callout tip">
+              <span class="callout-icon">✅</span>
+              <div><strong>Referring to yourself?</strong> If your CRSC site provides Workforce services, you can refer the client to your own agency. Once complete, proceed through the full Workforce process (Sections 3–8 below).</div>
             </div>
-
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — Referral option on the Encounter page</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the referral section of the Outreach Service page with the agency selection dropdown and phone number display</div>
+            </div>
             <div class="video-block">
-              <div class="video-label">Video Walkthrough — Login & Navigation</div>
-              <div class="video-wrapper">
-                <div class="video-placeholder">
-                  <div class="play-icon">▶</div>
-                  <p>Login & Navigation Video</p>
-                  <small>Replace VIDEO_ID in the source code with your YouTube video ID</small>
-                </div>
-              </div>
+              <div class="video-label">Video Walkthrough — Making a Referral (CRSC)</div>
+              <div class="video-ph"><div class="video-ph-inner"><div class="play-icon">▶</div><p>CRSC Referral Walkthrough</p><small>Replace VIDEO_ID: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;</small></div></div>
             </div>
-
           </div>
         </div>
 
-        <!-- SECTION 3 -->
-        <div class="booklet-section" id="s3">
+        <div class="booklet-section agency-section" id="s3">
           <div class="bs-header" onclick="toggleSection(this)">
             <div class="bs-num">3</div>
-            <div class="bs-title">Searching & Deduplication</div>
-            <div class="bs-toggle">▾</div>
+            <div class="bs-title-wrap">
+              <div class="bs-title">Finding or Creating a Client Account</div>
+              <div class="bs-subtitle">Deduplication — always search before creating</div>
+            </div>
+            <div class="bs-toggle open">▾</div>
           </div>
           <div class="bs-body open">
-            <p>Before creating any new client record, you <strong>must</strong> always search for an existing client first. Duplicate records create reporting errors and can negatively impact a client's service history. The deduplication process is one of the most critical steps in ECM data quality.</p>
-
-            <div class="callout tip">
-              <span class="callout-icon">✅</span>
-              <div><strong>Best Practice:</strong> Search by at least two identifiers (e.g., last name + date of birth) to reduce false negatives. A client may be in the system under a slightly different spelling.</div>
+            <div class="callout alert">
+              <span class="callout-icon">🚨</span>
+              <div><strong>Always search before creating.</strong> Duplicate client records cause reporting errors and can negatively affect a client's service history across the system.</div>
             </div>
-
-            <h4>How to Search for a Client</h4>
-            <ul>
-              <li>Navigate to the Client Search panel from the main menu</li>
-              <li>Enter the client's last name and date of birth at minimum</li>
-              <li>Review all results carefully before concluding no match exists</li>
-              <li>If a match is found, open that record — do not create a new one</li>
-              <li>If no match is found after thorough searching, proceed to create a new record</li>
-            </ul>
-
+            <p>Before creating any new client record, you must search for an existing account. Navigate to the <strong>Outreach Service</strong> page from the left navigation, then use the Look-Up bar to search.</p>
+            <h4>Searching for a Client</h4>
+            <div class="steps">
+              <div class="step"><div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h5>Enter First Name and Last Name in the Look-Up bar</h5><p>Click Search & Add to initiate the search.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h5>Review all results carefully</h5><p>Confirm DOB, SSN (last 4), and Address. A client may appear under a slightly different name spelling.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div><div class="step-content"><h5>If a match is found — click Select</h5><p>Open the existing record. Do not create a new account.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">4</div></div><div class="step-content"><h5>If no match is found — click Create New Account</h5><p>Enter: First Name, Last Name, DOB, SSN (if available), Email or Mobile. If contact info unavailable, select "Account Email or Mobile Number is not Available," then click Sign Up.</p></div></div>
+            </div>
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — Look-Up bar and Search Results pop-up</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the Look-Up bar with name fields and the Search Result / Create New Account pop-up with the Select button highlighted</div>
+            </div>
+            <div class="callout warn">
+              <span class="callout-icon">⚠️</span>
+              <div>ECM will not allow you to complete intake if the client is <strong>active with another agency</strong>. Contact DFSS to request an exit before proceeding. Once exited, return to the application and select Verify Check to refresh the Verify List.</div>
+            </div>
             <div class="video-block">
-              <div class="video-label">Video Walkthrough — Client Search & Deduplication</div>
-              <div class="video-wrapper">
-                <div class="video-placeholder">
-                  <div class="play-icon">▶</div>
-                  <p>Client Search Video</p>
-                  <small>Replace VIDEO_ID in the source code with your YouTube video ID</small>
-                </div>
-              </div>
+              <div class="video-label">Video Walkthrough — Client Search & Account Creation</div>
+              <div class="video-ph"><div class="video-ph-inner"><div class="play-icon">▶</div><p>Client Search & Deduplication</p><small>Replace VIDEO_ID: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;</small></div></div>
             </div>
-
           </div>
         </div>
 
-        <!-- SECTION 4 -->
-        <div class="booklet-section" id="s4">
+        <div class="booklet-section agency-section" id="s4">
           <div class="bs-header" onclick="toggleSection(this)">
             <div class="bs-num">4</div>
-            <div class="bs-title">Creating a New Application</div>
+            <div class="bs-title-wrap">
+              <div class="bs-title">Creating & Completing an Application</div>
+              <div class="bs-subtitle">Build the client's program record and verify it</div>
+            </div>
             <div class="bs-toggle">▾</div>
           </div>
           <div class="bs-body">
-            <p>Once you have confirmed the client does not already exist in ECM, you can create a new application. This establishes their official program record within the Workforce Division.</p>
-
-            <h4>Required Fields</h4>
-            <ul>
-              <li>Legal first and last name</li>
-              <li>Date of birth</li>
-              <li>Social Security Number (last 4 digits minimum)</li>
-              <li>Address and contact information</li>
-              <li>Program type and funding source</li>
-              <li>Referral source</li>
-            </ul>
-
-            <div class="callout info">
-              <span class="callout-icon">ℹ️</span>
-              <div>Fields marked with a red asterisk (*) are required and must be completed before saving. Saving an incomplete record may result in the application being flagged during QA review.</div>
+            <p>Once you have found or created the client's account, navigate to the <strong>Application</strong> page from the left navigation.</p>
+            <div class="steps">
+              <div class="step"><div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h5>Go to Application → Applications tab → click ADD</h5><p>A pop-up will appear asking you to select the Program.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h5>Select the Program and click Save</h5><p>Choose the appropriate Workforce program (e.g., WRT_Workforce_Training). Confirm Household Member, Entry Date, Case Manager, and Location.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div><div class="step-content"><h5>Complete all items on the Verify List</h5><p>The red Verify List tab on the right side shows all required fields. Common requirements: Workforce Assessment, Income, and Document upload.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">4</div></div><div class="step-content"><h5>Verify the application via HH Members tab → Lock icon</h5><p>Status changes from "Verified: No" to "Verified: Yes (Case Reviewed)."</p></div></div>
             </div>
-
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — Application page with ADD button and Verify List</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the Application page with the Applications tab, ADD button circled, and the red Verify List tab on the right</div>
+            </div>
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — Unverified vs Verified lock states</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the HH Members tab side-by-side: Unverified state (open lock) and Verified state (closed lock)</div>
+            </div>
             <div class="video-block">
-              <div class="video-label">Video Walkthrough — Creating a New Application</div>
-              <div class="video-wrapper">
-                <div class="video-placeholder">
-                  <div class="play-icon">▶</div>
-                  <p>New Application Video</p>
-                  <small>Replace VIDEO_ID in the source code with your YouTube video ID</small>
-                </div>
-              </div>
+              <div class="video-label">Video Walkthrough — Creating & Verifying an Application</div>
+              <div class="video-ph"><div class="video-ph-inner"><div class="play-icon">▶</div><p>Application Creation & Verification</p><small>Replace VIDEO_ID: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;</small></div></div>
             </div>
-
           </div>
         </div>
 
-        <!-- SECTION 5 -->
-        <div class="booklet-section" id="s5">
+        <div class="booklet-section agency-section" id="s5">
           <div class="bs-header" onclick="toggleSection(this)">
             <div class="bs-num">5</div>
-            <div class="bs-title">Recording Encounters</div>
+            <div class="bs-title-wrap">
+              <div class="bs-title">Setting Goals & the Individual Employment Plan (IEP)</div>
+              <div class="bs-subtitle">WF Placement page — Goals, IEP, and Progress Notes</div>
+            </div>
             <div class="bs-toggle">▾</div>
           </div>
           <div class="bs-body">
-            <p>Every meaningful interaction with a client should be documented as an encounter in ECM. Encounters are the primary way the Workforce Division tracks service delivery and demonstrates program activity for reporting and compliance.</p>
-
-            <h4>Types of Encounters</h4>
+            <p>After verifying the application, navigate to the <strong>WF Placement</strong> page. The three required tabs are: <strong>Goals</strong>, <strong>IEP</strong>, and <strong>Progress Note</strong>.</p>
+            <h4>WF Placement Page Tabs</h4>
             <ul>
-              <li><strong>In-person meeting</strong> — face-to-face sessions with the client</li>
-              <li><strong>Phone contact</strong> — outreach or follow-up calls</li>
-              <li><strong>Workshop / group session</strong> — attendance at a program-run event</li>
-              <li><strong>Job placement</strong> — recording a successful placement outcome</li>
-              <li><strong>Follow-up</strong> — post-placement check-ins within required timeframes</li>
+              <li><strong>Goals</strong> — Set employment goals, readiness challenges, barriers, and development targets (Required)</li>
+              <li><strong>IEP (Individual Employment Plan)</strong> — Track tasks, enroll, employ, and track retention (Required)</li>
+              <li><strong>Progress Note</strong> — Document all client interaction notes (Required)</li>
+              <li>Work History — Past employment (feeds into Resume tab)</li>
+              <li>Education — Diplomas, certifications, test results (feeds into Resume tab)</li>
+              <li>Services — Domain-specific services for reporting</li>
+              <li>Resume — Auto-populated from Work History and Education</li>
+              <li>Document — File uploads</li>
             </ul>
-
-            <div class="callout tip">
-              <span class="callout-icon">✅</span>
-              <div>Encounters should be entered the same day they occur whenever possible. Backdating should be avoided unless you have supervisor approval and a documented reason.</div>
+            <h4>Adding a Goal</h4>
+            <div class="steps">
+              <div class="step"><div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h5>On the Goals tab, select the edit pencil</h5><p>This opens the Goals form.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h5>Complete: Goal Name, Industry, Placement Program</h5><p>Selecting the Placement Program reveals three additional sections.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div><div class="step-content"><h5>Select from Readiness Challenges, Employment Barriers, Required Development</h5><p>Readiness Challenges = areas for improvement. Employment Barriers = barriers to employment. Required Development = certifications/licenses needed.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">4</div></div><div class="step-content"><h5>To add a custom Target, click the + icon next to Required Development</h5><p>Enter the target name, check "Certification" if applicable, then Save.</p></div></div>
             </div>
-
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — Goals form</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the Goals form: left side with Goal Name/Industry/Placement Program, right side with the three selection sections</div>
+            </div>
+            <h4>Adding Tasks to the IEP</h4>
+            <div class="steps">
+              <div class="step"><div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h5>Go to the IEP tab → select the Placement Pre-Employment target</h5><p>Active targets are shaded blue.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h5>Click ADD, enter a task name and optional description, then Save</h5><p>Examples: "Create a Resume," "Interview Practice," "Apply for Jobs."</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">3</div></div><div class="step-content"><h5>On the Progress Note tab, document all notes related to each task</h5><p>Notes should be entered regularly to reflect ongoing client activity.</p></div></div>
+            </div>
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — IEP tab showing Targets and Pre-Employment task list</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the IEP tab with the Targets section (blue active tile) and the Pre-Employment task list with ADD button</div>
+            </div>
             <div class="video-block">
-              <div class="video-label">Video Walkthrough — Recording Encounters</div>
-              <div class="video-wrapper">
-                <div class="video-placeholder">
-                  <div class="play-icon">▶</div>
-                  <p>Encounter Recording Video</p>
-                  <small>Replace VIDEO_ID in the source code with your YouTube video ID</small>
-                </div>
-              </div>
+              <div class="video-label">Video Walkthrough — Goals, IEP Setup, and Progress Notes</div>
+              <div class="video-ph"><div class="video-ph-inner"><div class="play-icon">▶</div><p>Goals & IEP Walkthrough</p><small>Replace VIDEO_ID: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;</small></div></div>
             </div>
-
           </div>
         </div>
 
-      </div><!-- /booklet-content -->
-    </div><!-- /booklet-layout -->
+        <div class="booklet-section agency-section" id="s6">
+          <div class="bs-header" onclick="toggleSection(this)">
+            <div class="bs-num">6</div>
+            <div class="bs-title-wrap">
+              <div class="bs-title">Enrolling and Employing a Client</div>
+              <div class="bs-subtitle">These actions trigger your performance contract milestones</div>
+            </div>
+            <div class="bs-toggle">▾</div>
+          </div>
+          <div class="bs-body">
+            <div class="callout alert">
+              <span class="callout-icon">📊</span>
+              <div><strong>Performance Contract:</strong> Enrollment is one of your two key contract milestones. A client cannot be enrolled without at least one IEP task. Timely enrollment entries directly impact your agency's reimbursements.</div>
+            </div>
+            <h4>Enrolling a Client</h4>
+            <div class="steps">
+              <div class="step"><div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h5>Ensure at least one task exists for each IEP target</h5><p>ECM requires at least one task before you can enroll.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h5>Click Enroll on the IEP tab</h5><p>Adjust the Enrollment Date if needed, then Save.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">3</div></div><div class="step-content"><h5>Continue adding Progress Notes and updating task statuses</h5><p>As tasks are completed, edit each task, set Task Status to "Completed," then Save.</p></div></div>
+            </div>
+            <h4>Employing a Client</h4>
+            <div class="callout warn">
+              <span class="callout-icon">⚠️</span>
+              <div>Before clicking Employ: update all Pre-Employment notes and task statuses. Once you click Employ, all Pre-Employment tasks are <strong>locked</strong> and cannot be edited.</div>
+            </div>
+            <div class="steps">
+              <div class="step"><div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h5>Click Employ on the IEP tab → click OK on the confirmation pop-up</h5><p></p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h5>Complete all required fields in the Employ pop-up</h5><p>Industry, Company Name, Placement Date (date job was offered), Work Start Date (first day on the job), Hours per Week, Hourly Rate, Address, Responsibility.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">3</div></div><div class="step-content"><h5>Click Save</h5><p>ECM automatically generates Retention 30, 90, and 180 milestone dates based on the Work Start Date.</p><p class="note">📅 Work Start Date drives all retention dates. Enter it accurately — it cannot be changed after saving.</p></div></div>
+            </div>
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — Employ pop-up form</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the Employ pop-up with all fields — highlight Placement Date and Work Start Date with a note explaining the difference</div>
+            </div>
+            <div class="video-block">
+              <div class="video-label">Video Walkthrough — Enrolling and Employing a Client</div>
+              <div class="video-ph"><div class="video-ph-inner"><div class="play-icon">▶</div><p>Enrollment & Employment Walkthrough</p><small>Replace VIDEO_ID: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;</small></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="booklet-section agency-section" id="s7">
+          <div class="bs-header" onclick="toggleSection(this)">
+            <div class="bs-num">7</div>
+            <div class="bs-title-wrap">
+              <div class="bs-title">Tracking Job Retention</div>
+              <div class="bs-subtitle">Retention 30, 90, and 180-day milestones</div>
+            </div>
+            <div class="bs-toggle">▾</div>
+          </div>
+          <div class="bs-body">
+            <div class="callout alert">
+              <span class="callout-icon">📊</span>
+              <div><strong>Performance Contract:</strong> <strong>Retention 30</strong> is your second key billing milestone. Once a client reaches 30 days of employment, you can submit a Retention voucher and unlock that reimbursement.</div>
+            </div>
+            <p>After employing a client, a <strong>Follow-up</strong> target is automatically generated on the IEP tab with three default tasks: Retention 30, Retention 90, and Retention 180. ECM calculates these dates automatically from the Work Start Date.</p>
+            <h4>Completing Retention Milestones</h4>
+            <div class="steps">
+              <div class="step"><div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h5>On the Progress Note tab, document client check-ins at or before each milestone</h5><p>Note any job updates, challenges, or changes to employment status.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h5>Once the client reaches the milestone date, go to IEP → Follow-up target</h5><p>Select the edit pencil next to the milestone task (e.g., Retention 30).</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">3</div></div><div class="step-content"><h5>Set Task Status to "Completed" and Save</h5><p>Task Status cannot be set to Completed until the milestone date has passed.</p><p class="note">⚠️ After marking Retention 30 as Completed, proceed immediately to Auto Payment Billing to submit your voucher.</p></div></div>
+            </div>
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — IEP Follow-up target with Retention milestones</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the IEP tab with the Follow-up target selected, displaying Retention 30, 90, and 180 tasks with their auto-calculated target dates</div>
+            </div>
+            <div class="video-block">
+              <div class="video-label">Video Walkthrough — Retention Tracking</div>
+              <div class="video-ph"><div class="video-ph-inner"><div class="play-icon">▶</div><p>Retention Tracking Walkthrough</p><small>Replace VIDEO_ID: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;</small></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="booklet-section billing-section" id="s8">
+          <div id="billing-anchor" style="scroll-margin-top:110px;"></div>
+          <div class="bs-header" onclick="toggleSection(this)">
+            <div class="bs-num">8</div>
+            <div class="bs-title-wrap">
+              <div class="bs-title">Auto Payment Billing (Vouchers) <span class="billing-badge">Most Support Calls</span></div>
+              <div class="bs-subtitle">Creating, submitting, and tracking voucher payments</div>
+            </div>
+            <div class="bs-toggle open">▾</div>
+          </div>
+          <div class="bs-body open">
+            <div class="callout alert">
+              <span class="callout-icon">💳</span>
+              <div><strong>This section is critical.</strong> Auto Payment Billing is how your agency gets reimbursed for enrollments and Retention 30 completions. Errors or missed steps here are the most common cause of delayed or denied payments. Read every step carefully.</div>
+            </div>
+            <p>The Auto Payment page has two tabs: <strong>Auto Payment</strong> (your agency creates and submits vouchers) and <strong>Auto Reconciliation</strong> (the City approves or denies payments). You will work in the Auto Payment tab.</p>
+            <div class="callout info">
+              <span class="callout-icon">ℹ️</span>
+              <div>A client must have a completed Enrollment or Retention 30 in their WF Placement record before they appear in the billing list. If a client isn't showing up, check their IEP status first.</div>
+            </div>
+            <h4>Creating a Voucher</h4>
+            <div class="steps">
+              <div class="step"><div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div><div class="step-content"><h5>Navigate to the Auto Payment Billing page</h5><p>Select it from the main left-side navigation.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div><div class="step-content"><h5>Click CREATE → select your Agency → click Search</h5><p>All eligible clients (enrollment and Retention 30) appear in the Billing List.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div><div class="step-content"><h5>Enter a Voucher Name</h5><p>Use a clear, consistent naming convention (e.g., "Agency Name – Month – Type").</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">4</div><div class="step-line"></div></div><div class="step-content"><h5>Select which clients to include using the checkboxes</h5><p>Only include clients whose records are fully complete and verified.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">5</div><div class="step-line"></div></div><div class="step-content"><h5>Click Save and Close</h5><p>The voucher now appears on the Voucher List page.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">6</div><div class="step-line"></div></div><div class="step-content"><h5>Click Submit to send for City review</h5><p>Status changes from New → Pending.</p><p class="note">⚠️ You can only edit a voucher BEFORE submitting. Once submitted, it cannot be changed.</p></div></div>
+              <div class="step"><div class="step-left"><div class="step-dot">7</div></div><div class="step-content"><h5>Print the Voucher Transmittal Form</h5><p>After submitting: click Forms → Application Forms → Voucher Transmittal Form → Print.</p></div></div>
+            </div>
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — Auto Payment Billing page with CREATE button and Voucher pop-up</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the Auto Payment Billing page with the VOUCHER / CREATE button and the Voucher pop-up with Agency Name, Billing List, and checkboxes visible</div>
+            </div>
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — Voucher List with Submit and History buttons</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the Voucher List row with the voucher name, SUBMIT button, and HISTORY button. Status showing "New" before submission</div>
+            </div>
+            <h4>Voucher Status Reference</h4>
+            <div class="status-grid">
+              <div class="status-pill s-new"><span class="pill-label">Status</span>New</div>
+              <div class="status-pill s-pending"><span class="pill-label">Status</span>Pending</div>
+              <div class="status-pill s-approved"><span class="pill-label">Status</span>Approved</div>
+              <div class="status-pill s-denied"><span class="pill-label">Status</span>Denied</div>
+            </div>
+            <ul>
+              <li><strong>New</strong> — Voucher saved but not yet submitted</li>
+              <li><strong>Pending</strong> — Submitted but not yet processed by the City</li>
+              <li><strong>Approved</strong> — Approved on the Auto Reconciliation tab by the City</li>
+              <li><strong>Denied</strong> — Denied; view History to see the reason</li>
+            </ul>
+            <h4>Editing a Voucher (Before Submission Only)</h4>
+            <ul>
+              <li>Click Edit next to the voucher name in the Voucher List</li>
+              <li>Add or remove Billing List records using checkboxes, then Save</li>
+              <li>To remove a record entirely, click the X at the end of the record row</li>
+            </ul>
+            <h4>Viewing Voucher History</h4>
+            <p>Click the <strong>History</strong> button next to any voucher to see a full log of all status changes and dates. Denied vouchers will show the reason for denial.</p>
+            <div class="ss-block">
+              <div class="ss-label">Screenshot — History pop-up showing status log</div>
+              <div class="ss-ph"><strong>📸 Screenshot Placeholder</strong>Show the History pop-up with a full status change log including Approved, Pending, and Denied record with denial reason</div>
+            </div>
+            <h4>🚨 Common Billing Issues & Troubleshooting</h4>
+            <div class="faq-list">
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">Client isn't appearing in my Billing List when I click Search<span class="faq-arrow">▾</span></div>
+                <div class="faq-a">
+                  <p>The most common cause is that the client's WF Placement record is not complete. Check the following:</p>
+                  <p>• For Enrollment vouchers: verify the client has been Enrolled in the IEP tab (Enroll button clicked, date saved).</p>
+                  <p>• For Retention 30 vouchers: verify the Retention 30 task status has been set to "Completed" and saved in IEP → Follow-up target.</p>
+                  <p>• Confirm the client's application is Verified (HH Members tab → lock icon shows as locked).</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">My voucher was Denied — what do I do?<span class="faq-arrow">▾</span></div>
+                <div class="faq-a">
+                  <p>Click the <strong>History</strong> button to find the reason. Common reasons include missing documentation, client not exited from a previous agency, or retention milestone date not yet reached.</p>
+                  <p>After correcting the underlying issue, contact ECM Technical Support: <strong>ecm_support@wegrp.com</strong> | (844) 726-2999.</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">I submitted a voucher but need to make a change — can I edit it?<span class="faq-arrow">▾</span></div>
+                <div class="faq-a">
+                  <p><strong>No — once a voucher is submitted, it cannot be edited.</strong> Review your Billing List carefully before clicking Submit.</p>
+                  <p>If submitted in error, contact ECM Technical Support immediately: <strong>ecm_support@wegrp.com</strong> | (844) 726-2999.</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">I can't find an old voucher — how do I search for it?<span class="faq-arrow">▾</span></div>
+                <div class="faq-a">
+                  <p>Use the <strong>AutoPayment Voucher Quick Access</strong> menu. Select your Agency, select a Status, and click Search. Click any matching record to open it on the Auto Payment tab.</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">How do I print the Voucher Transmittal Form?<span class="faq-arrow">▾</span></div>
+                <div class="faq-a">
+                  <p>After submitting: click <strong>Forms</strong> at the top right → click "Application Forms" → select print next to Voucher Transmittal Form in the Application Report List.</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">The Retention 30 task won't let me mark it as Completed<span class="faq-arrow">▾</span></div>
+                <div class="faq-a">
+                  <p>Task Status cannot be set to Completed until the milestone date has actually been reached. Check the Target Date on the Retention 30 task — you must wait until that date or after.</p>
+                  <p>If the date has passed and you're still unable to save, verify the Work Start Date entered during the Employ step is correct, as all retention dates are calculated from it.</p>
+                </div>
+              </div>
+            </div>
+            <div class="video-block">
+              <div class="video-label">Video Walkthrough — Auto Payment Billing (Full Process)</div>
+              <div class="video-ph"><div class="video-ph-inner"><div class="play-icon">▶</div><p>Auto Payment Billing — Full Walkthrough</p><small>Replace VIDEO_ID: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;</small></div></div>
+            </div>
+            <div class="contact-box">
+              <div class="contact-item">
+                <div class="contact-icon">📧</div>
+                <div class="contact-text"><small>ECM Technical Support Email</small><strong>ecm_support@wegrp.com</strong></div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <div class="contact-text"><small>ECM Technical Support Phone</small><strong>(844) 726-2999</strong></div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">💬</div>
+                <div class="contact-text"><small>For billing issues, contact</small><strong>Your ECM Administrator</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p><strong>City of Chicago · Workforce Division · ECM Training Portal</strong></p>
-  <p style="margin-top:.4rem;">Supported by William Everett & Adsystech · For technical support contact your ECM Administrator</p>
+  <p><strong>City of Chicago · DFSS · Workforce Division · ECM Training Portal</strong></p>
+  <p style="margin-top:.4rem;">Supported by William Everett &amp; Adsystech · ECM Technical Support: ecm_support@wegrp.com · (844) 726-2999</p>
 </footer>
 
-<!-- ── JAVASCRIPT ─────────────────────────────── -->
 <script>
-  // ── Count resources ──────────────────────────
-  const cards = document.querySelectorAll('.resource-card');
-  document.getElementById('resource-count').textContent = cards.length;
-  document.getElementById('res-count-label').textContent = cards.length + ' items';
-
-  // ── Accordion toggle ─────────────────────────
   function toggleSection(header) {
     const body   = header.nextElementSibling;
     const toggle = header.querySelector('.bs-toggle');
@@ -1024,24 +858,23 @@
     updateProgress();
   }
 
-  // ── Progress tracking ────────────────────────
-  const totalSections = 5;
+  const TOTAL = 8;
   function updateProgress() {
     const openCount = document.querySelectorAll('.bs-body.open').length;
-    const pct = Math.round((openCount / totalSections) * 100);
+    const pct = Math.round((openCount / TOTAL) * 100);
     document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('progress-label').textContent = openCount + ' / ' + totalSections + ' open';
+    document.getElementById('progress-label').textContent = openCount + ' / ' + TOTAL + ' open';
   }
   updateProgress();
 
-  // ── Active TOC link on scroll ────────────────
   const tocLinks = document.querySelectorAll('.toc-link');
-  const sectionEls = ['s1','s2','s3','s4','s5'].map(id => document.getElementById(id));
+  const sectionIds = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+  const sectionEls = sectionIds.map(id => document.getElementById(id));
 
   function onScroll() {
     let current = null;
     sectionEls.forEach(el => {
-      if (el && window.scrollY >= el.offsetTop - 120) current = el.id;
+      if (el && window.scrollY >= el.offsetTop - 130) current = el.id;
     });
     tocLinks.forEach(link => {
       const href = link.getAttribute('href').replace('#','');
@@ -1050,7 +883,49 @@
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-</script>
 
+  function setAudience(type, btn) {
+    document.querySelectorAll('.aud-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.booklet-section').forEach(s => {
+      s.style.opacity = '1';
+      s.style.filter = '';
+    });
+    if (type === 'crsc') {
+      document.querySelectorAll('.booklet-section:not(.crsc-only)').forEach(s => {
+        s.style.opacity = '.5';
+        s.style.filter = 'grayscale(40%)';
+      });
+    } else if (type === 'agency') {
+      document.querySelectorAll('.booklet-section.crsc-only').forEach(s => {
+        s.style.opacity = '.4';
+        s.style.filter = 'grayscale(60%)';
+      });
+    }
+  }
+
+  function filterResources(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.querySelectorAll('.resource-card');
+    let shown = 0;
+    cards.forEach(card => {
+      const aud = card.getAttribute('data-audience');
+      const show = type === 'all' || aud === type;
+      card.classList.toggle('hidden', !show);
+      if (show) shown++;
+    });
+    document.getElementById('res-count-label').textContent = shown + ' item' + (shown !== 1 ? 's' : '');
+  }
+  document.getElementById('res-count-label').textContent = document.querySelectorAll('.resource-card').length + ' items';
+
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const arrow  = el.querySelector('.faq-arrow');
+    const isOpen = answer.classList.contains('open');
+    answer.classList.toggle('open', !isOpen);
+    arrow.classList.toggle('open', !isOpen);
+  }
+</script>
 </body>
 </html>
